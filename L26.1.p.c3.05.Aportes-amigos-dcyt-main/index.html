@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>APORTES AMIGOS DCyT</title>
+  </head>
+
+  <body>
+    <section id="body">
+      <h2>APORTES AMIGOS DCyT</h2>
+      <button id="body_btNuevoAporte">+ Nuevo Aporte</button>
+      <hr />
+
+      <h3>Listado de Aportes del Día</h3>
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Cédula</th>
+            <th>Billetes 5$</th>
+            <th>Billetes 10$</th>
+            <th>Billetes 20$</th>
+            <th>Monto Total</th>
+          </tr>
+        </thead>
+        <tbody id="body_Aportes"></tbody>
+      </table>
+
+      <hr />
+      <div><strong>Total reunido en el día:</strong> <span id="body_lblTotalDia">$0</span></div>
+      <div><strong>Total acumulado (incluye días anteriores):</strong> <span id="body_lblTotalAcumulado">$0</span></div>
+      <div><strong>Porcentaje de billetes de 20$:</strong> <span id="body_lblPorcentaje20">0%</span></div>
+    </section>
+
+    <!-- Modal / Formulario para nuevo aporte -->
+    <section
+      id="aporte"
+      hidden
+      style="
+        margin-top: 20px;
+        border: 2px solid #333;
+        padding: 20px;
+        width: 400px;
+        background: #f9f9f9;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+      "
+    >
+      <h3>Registrar Nuevo Aporte</h3>
+      <div>
+        <label>Cédula:</label><br />
+        <input type="text" id="aporte_inCedula" placeholder="Ej: 12345678" />
+      </div>
+      <br />
+      <div>
+        <label>Cantidad de billetes de 5$:</label><br />
+        <input type="number" id="aporte_inBilletes5" min="0" value="0" />
+      </div>
+      <br />
+      <div>
+        <label>Cantidad de billetes de 10$:</label><br />
+        <input type="number" id="aporte_inBilletes10" min="0" value="0" />
+      </div>
+      <br />
+      <div>
+        <label>Cantidad de billetes de 20$:</label><br />
+        <input type="number" id="aporte_inBilletes20" min="0" value="0" />
+      </div>
+      <br />
+      <button id="aporte_btCancelar">Cancelar</button>
+      <button id="aporte_btAceptar">Aceptar</button>
+    </section>
+
+    <script type="module">
+      import Cl_cRegistroAportes from "./dist/controllers/Cl_cRegistroAportes.js";
+      import Cl_cAporte from "./dist/controllers/Cl_cAporte.js";
+      import Cl_vRegistroAportes from "./dist/views/Cl_vRegistroAportes.js";
+      import Cl_vAporte from "./dist/views/Cl_vAporte.js";
+
+      // Datos acumulados del día anterior (según el enunciado)
+      const billetes5Anterior = 5;
+      const billetes10Anterior = 10;
+      const billetes20Anterior = 5;
+
+      const vistaRegistro = new Cl_vRegistroAportes();
+      const vistaAporte = new Cl_vAporte();
+
+      const controladorAporte = new Cl_cAporte(vistaAporte);
+      new Cl_cRegistroAportes(
+        vistaRegistro,
+        controladorAporte,
+        billetes5Anterior,
+        billetes10Anterior,
+        billetes20Anterior
+      );
+    </script>
+  </body>
+</html>
